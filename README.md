@@ -1,6 +1,8 @@
 # ww-gm
 
-Credits:
+Weaponized Warfare Gamemode for San Andreas Multiplayer
+
+Credits
 
 y_less for foreach and sscanf
 
