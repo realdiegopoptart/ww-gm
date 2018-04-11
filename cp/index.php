@@ -15,10 +15,6 @@ $query = $con->prepare("SELECT * from players where ID = '$sesuID'");
 $query->execute();
 $gData = $query->fetch();
 
-$result1 = $gData['KILLS'] / $gData['DEATHS'];
-
-
-
 ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -46,7 +42,7 @@ $result1 = $gData['KILLS'] / $gData['DEATHS'];
 								<hr />
 								Deaths: <?php echo number_format($gData['DEATHS']); ?>
 								<hr />
-								K/D: <?php echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2);  ?>
+								K/D: <?php if($gData['KILLS'] != 0 & $gData['DEATHS'] != 0 ) echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2); else echo "0.00";  ?>
 								<hr />
 								IP: <?php if($gData['IP'] != 0) echo $gData['IP']; 
 								else echo "None"; ?>
