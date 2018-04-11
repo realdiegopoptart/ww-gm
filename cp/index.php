@@ -9,11 +9,9 @@ if(isset($_GET['id']))
 	exit;	
 }
 
-$charaID = //$_GET['ID'];
-//$charaID = "1";
 $sesuID = $_SESSION['uID'];
 
-$query = $con->prepare("SELECT * from players where ID = '$charaID'");
+$query = $con->prepare("SELECT * from players where ID = '$sesuID'");
 $query->execute();
 $gData = $query->fetch();
 

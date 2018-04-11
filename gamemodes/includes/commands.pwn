@@ -468,6 +468,16 @@ CMD:setvw(playerid, params[])
 	else return SendClientMessage(playerid, 0xff0000ff, "You're not authorized to use this command.");
 }
 
+CMD:flipcoin(playerid, params[])
+{
+	new number = random(1);
+	if(number == 1) {
+		SendClientMessage(playerid, -1, "Heads");
+	} else {
+	    SendClientMessage(playerid, -1, "Tails");
+	}
+}
+
 CMD:setint(playerid, params[])
 {
 	if(pInfo[playerid][Admin] > 1)
