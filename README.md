@@ -12,6 +12,6 @@ emmet_ for easydialog
 
 ZCMD for zcmd
 
-maddinat0r for discord-connector
+maddinat0r for discord-connector & sscanf
 
 SecretBoss for UCP Base
