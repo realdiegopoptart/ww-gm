@@ -34,13 +34,13 @@ CMD:report(playerid, params[])
 	
 	if(pInfo[playerid][rMuted] != 1)
 	{
-	    if(pInfo[playerid][rActive] != 1)
+	    if(GetPVarInt(playerid, "rActive") != 1)
 	    {
 	    	if(sscanf(params, "s[128]", report)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /report (message)");
 	    	format(string, sizeof(string), "REPORT: %s (ID: %d) reports - %s", reportname, playerid, report);
 	    	AdminChat(COLOR_RED, string);
 	    	SendClientMessage(playerid, COLOR_LIGHTGREY, "Report has been submitted.");
-	    	pInfo[playerid][rActive] = 1;
+	    	SetPVarInt(playerid, "rActive", 1);
  	   		if (_:g_ReportChannelId == 0)
 			g_ReportChannelId = DCC_FindChannelById("");
 			new str2[128];
@@ -69,7 +69,7 @@ CMD:rmute(playerid, params[])
 		format(string, sizeof(string), "You have been report muted by %s, if you feel this is unjust tell another administrator.", givename);
 		SendClientMessage(giveplayerid, COLOR_RED, string);
 		pInfo[giveplayerid][rMuted] = 1;
-		pInfo[giveplayerid][rActive] = 0;
+		DeletePVar(playerid, "rActive");
 		if (_:g_AdminChannelId == 0)
 		g_AdminChannelId = DCC_FindChannelById("");
 		new strlog[128];
@@ -117,9 +117,9 @@ CMD:ar(playerid, params[])
 	{
 		if(sscanf(params, "d", giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /ar (id)");
 		
-		if(pInfo[giveplayerid][rActive] == 1)
+  		if(GetPVarInt(giveplayerid, "rActive") == 1)
 		{
-		    pInfo[giveplayerid][rActive] = 0;
+		    DeletePVar(giveplayerid, "rActive");
 		    format(string, sizeof(string), "Your report has been accepted by %s (/pm any additional info if required).", acceptname);
 		    SendClientMessage(giveplayerid, COLOR_LIGHTGREY, string);
 		    format(string, sizeof(string), "REPORT: %s has accepted %s's report.", acceptname, reportname);
@@ -172,17 +172,20 @@ CMD:debugkill(playerid, params[])
 
 CMD:viewenums(playerid, params[])
 {
-	new giveplayerid, givename[MAX_PLAYER_NAME], string[128], string2[128];
-	GetPlayerName(giveplayerid, givename, sizeof givename);
-	if(sscanf(params, "u", giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /viewenums (id)");
-	if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "That player is not connected!");
-	
-	format(string, sizeof(string), "%s's enums: Kills: %d, Deaths: %d, Banned: %d, Admin: %d, Cash: %d, Score: %d, Logged In: %d.", givename, pInfo[giveplayerid][Kills],
-	pInfo[giveplayerid][Deaths], pInfo[giveplayerid][Banned], pInfo[giveplayerid][Admin], pInfo[giveplayerid][Cash], pInfo[giveplayerid][Score], pInfo[giveplayerid][LoggedIn]);
-	format(string2, sizeof(string2), "more enums: IP: %s", pInfo[giveplayerid][IP]);
-	SendClientMessage(playerid, COLOR_LIGHTGREY, string);
-	SendClientMessage(playerid, COLOR_LIGHTGREY, string2);
-	return 1;
+	if(pInfo[playerid][Admin] > 1) {
+		new giveplayerid, givename[MAX_PLAYER_NAME], string[128], string2[128];
+		GetPlayerName(giveplayerid, givename, sizeof givename);
+		if(sscanf(params, "u", giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /viewenums (id)");
+		if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "That player is not connected!");
+
+		format(string, sizeof(string), "%s's enums: Kills: %d, Deaths: %d, Banned: %d, Admin: %d, Cash: %d, Score: %d, Logged In: %d.", givename, pInfo[giveplayerid][Kills],
+		pInfo[giveplayerid][Deaths], pInfo[giveplayerid][Banned], pInfo[giveplayerid][Admin], pInfo[giveplayerid][Cash], pInfo[giveplayerid][Score], pInfo[giveplayerid][LoggedIn]);
+		format(string2, sizeof(string2), "more enums: IP: %s", pInfo[giveplayerid][IP]);
+		SendClientMessage(playerid, COLOR_LIGHTGREY, string);
+		SendClientMessage(playerid, COLOR_LIGHTGREY, string2);
+		return 1;
+	}
+	else return SendClientMessage(playerid, 0xff0000ff, "You're not authorized to use this command.");
 }
 
 CMD:kd(playerid, params[])

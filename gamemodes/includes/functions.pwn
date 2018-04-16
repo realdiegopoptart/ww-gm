@@ -109,27 +109,6 @@ public OnPlayerRequestClass(playerid, classid)
 	return 1;
 }
 
-forward Countdown(playerid, seconds);
-public Countdown(playerid, seconds)
-{
-        new string[256];
-        if(seconds > 0)
-        {
-            format(string, sizeof(string), "~R~%d", seconds);
-            GameTextForPlayer(playerid, string, 1000, 3);
-            seconds = seconds -1;
-            SetTimerEx("Countdown", 1000, 0, "ii", playerid, seconds);
-            return 1;
-        }
-        if(seconds == 0)
-        {
-            GameTextForPlayer(playerid, "~R~Start!", 500, 3);
-            TogglePlayerControllable(playerid, 1);
-            return 1;
-        }
-        return 1;
-}
-
 forward PingTimer();
 public PingTimer()
 {
@@ -137,7 +116,7 @@ public PingTimer()
 	{
 	  	if(IsPlayerConnected(i))
  		{
-		  	if(!IsPlayerAdmin(i))
+		  	if(pInfo[i][Admin] < 1)
 		   	{
 	    		new ping = GetPlayerPing(i);
 	    		if(ping > MaxPing)
@@ -162,32 +141,32 @@ public AnnouncementTimer()
 {
 	new string[128];
 
-	if(StringRandom == 1)
+	if(stringrandom == 0)
 	{
 	    format(string, sizeof(string), "Info: You can customize your skin if you obtain more than 100 points (/skin).");
 	    SendClientMessageToAll(COLOR_LIGHTBLUE, string);
-	    StringRandom++;
+	    stringrandom = random(3);
 	    SetTimer("AnnouncementTimer", 120000, false);
 	    return 1;
 	}
-	else if(StringRandom == 2)
+	else if(stringrandom == 1)
 	{
 	    format(string, sizeof(string), "Info: If you have any suggestions don't hesitate to tell an administrator.");
      	SendClientMessageToAll(COLOR_LIGHTBLUE, string);
-     	StringRandom++;
+	    stringrandom = random(3);
      	SetTimer("AnnouncementTimer", 120000, false);
      	return 1;
 	}
-	else if(StringRandom == 3)
+	else if(stringrandom == 2)
 	{
-	    format(string, sizeof(string), "Info: Feel free to join our discord @  (case sensitive!).");
-     	SendClientMessageToAll(COLOR_LIGHTBLUE, string);
-     	StringRandom++;
+	    format(string, sizeof(string), "Info: Feel free to join our discord @ discordlink (case sensitive!).");
+      	SendClientMessageToAll(COLOR_LIGHTBLUE, string);
+	    stringrandom = random(3);
      	SetTimer("AnnouncementTimer", 120000, false);
      	return 1;
 	}
 	else {
-	    StringRandom = 1;
+ 		stringrandom = random(3);
 	    SetTimer("AnnouncementTimer", 120000, false);
 	}
 	return 1;

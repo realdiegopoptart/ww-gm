@@ -15,8 +15,7 @@ new Float:RandomSpawns[][] =
 
 new MaxPing = 600;
 
-//my shit way of doing global announcements (AnnouncementTimer)
-new StringRandom = 1;
+new stringrandom = 0;
 
 //used to get current time for discord logs
 new Hour, Minute, Second;
