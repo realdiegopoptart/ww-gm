@@ -59,10 +59,18 @@
 		
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-
                     <li>
                         <a href="index.php"><i class="fa fa-dashboard"></i> Player Area</a>
                     </li>
+					<?php 
+					if(isset($_SESSION['playername']) and $_SESSION['playeradmin'] > 0) :
+					?>
+					 <li>
+                        <a href="admin.php"><i class="fa fa-dashboard"></i> Admin Area</a>
+                    </li>
+					<?php
+					endif;
+					?> 
                 </ul>
 
             </div>

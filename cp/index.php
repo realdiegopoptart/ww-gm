@@ -42,9 +42,24 @@ $gData = $query->fetch();
 								<hr />
 								Deaths: <?php echo number_format($gData['DEATHS']); ?>
 								<hr />
-								K/D: <?php if($gData['KILLS'] != 0 & $gData['DEATHS'] != 0 ) echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2); else echo "0.00";  ?>
+								K/D: 
+								<?php 
+								if($gData['KILLS'] == 0) {
+									if($gData['DEATHS'] == 0)
+									{
+										echo "No Data"; 
+									}
+									else {
+									echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2); 
+									}
+								} else {
+									echo "{$gData['KILLS']}.00";
+								}
+								
+								?>
+								
 								<hr />
-								IP: <?php if($gData['IP'] != 0) echo $gData['IP']; 
+								Last Logged IP: <?php if($gData['IP'] != 0) echo $gData['IP']; 
 								else echo "None"; ?>
 								</div>
 							</div>
