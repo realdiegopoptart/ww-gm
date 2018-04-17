@@ -179,7 +179,6 @@ public OnPlayerConnect(playerid)
 	new DB_Query[115], name[MAX_PLAYER_NAME + 1], ip[16];
 	GetPlayerName(playerid, name, sizeof name);
 	pInfo[playerid][PasswordFails] = 0;
-	pInfo[playerid][rActive] = 0;
 	
 	playercount++;
 	
@@ -207,8 +206,6 @@ public OnPlayerDisconnect(playerid, reason)
 	new DB_Query[256];
 	
 	playercount--;
-	
-	pInfo[playerid][rActive] = 0;
 	
 	mysql_format(MainPipeline, DB_Query, sizeof(DB_Query), "UPDATE `players` SET `SCORE` = %d, `CASH` = %d, `ADMIN` = %d, `BANNED` = %d, `KILLS` = %d, `DEATHS` = %d, `IP` = '%s', `REPORTMUTED` = %d WHERE `ID` = %d",
 	pInfo[playerid][Score], pInfo[playerid][Cash], pInfo[playerid][Admin], pInfo[playerid][Banned], pInfo[playerid][Kills], pInfo[playerid][Deaths], pInfo[playerid][IP], pInfo[playerid][rMuted], pInfo[playerid][ID]);

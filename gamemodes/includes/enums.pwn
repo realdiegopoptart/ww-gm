@@ -14,7 +14,6 @@ enum ENUM_PLAYER_DATA
 	Admin,
 	Banned,
 	rMuted,
-	rActive,
 	rAccepted,
 	Cache: Player_Cache,
 	bool:LoggedIn

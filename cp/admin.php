@@ -44,7 +44,6 @@ $gData = $query->fetch();
 								<p>Player Ban:</p>
 								<form action="tools/ban.php" method="POST">
                                         <div class="form-group">
-                                            <label>Username</label>
                                             <input type="text" id="banname" name="banname" class="form-control" placeholder="Username">
                                         </div>
 										<?php if(isset($err)): ?>
@@ -53,6 +52,19 @@ $gData = $query->fetch();
 										
 										<button type="submit" class="btn btn-default">Ban</button>
 										<p>Note: Player must be offline to be banned via cp.</p>
+								</form>
+								</div>
+								<div class="col-lg-6">
+								<p>IP Lookup:</p>
+								<form action="tools/ip.php" method="POST">
+                                        <div class="form-group">
+                                            <input type="text" id="ipname" name="ipname" class="form-control" placeholder="Username">
+                                        </div>
+										<?php if(isset($err)): ?>
+										<b class="help-block" style="color: red;"><?=$err?></b>
+										<?php endif; ?>
+										
+										<button type="submit" class="btn btn-default">Lookup</button>
 								</form>
 								</div>
 							</div>

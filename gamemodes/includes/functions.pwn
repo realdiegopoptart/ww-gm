@@ -188,7 +188,7 @@ MakeBan(iPlayerID)
 {
 	new DB_Query[256];
 	pInfo[iPlayerID][Banned] = 1;
-	mysql_format(MainPipeline, DB_Query, sizeof(DB_Query), "UPDATE `PLAYERS` SET `BANNED` = %d WHERE `ID` = %d",
+	mysql_format(MainPipeline, DB_Query, sizeof(DB_Query), "UPDATE `PLAYERS` SET `BANNED` = %d, WHERE `ID` = %d",
 	pInfo[iPlayerID][Banned], pInfo[iPlayerID][ID]);
 	mysql_tquery(MainPipeline, DB_Query);
 	SetTimerEx("KickDelay", 1000, 0, "i", iPlayerID);

@@ -19,14 +19,12 @@ $query = $con->prepare("SELECT * from players where ID = '$sesuID'");
 $query->execute();
 $gData = $query->fetch();
 
-$banquery = $con->prepare("UPDATE `players` SET `BANNED` = '1' WHERE `USERNAME` = ?");
-$banquery->execute(array($_POST['ipname']));
+$ipquery = $con->prepare("SELECT `IP` FROM `players` WHERE `USERNAME` = ?");
+$ipquery->execute(array($_POST['ipname']));
+$result = $ipquery->fetch();
 
-?>
+echo $result['IP'];
 
-<p>Ban Successful</p>
 
-<?php
-	echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../admin.php">';    
-	exit;
+
 ?>

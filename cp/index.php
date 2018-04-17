@@ -53,7 +53,7 @@ $gData = $query->fetch();
 									echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2); 
 									}
 								} else {
-									echo "{$gData['KILLS']}.00";
+									echo bcdiv($gData['KILLS'], $gData['DEATHS'], 2);
 								}
 								
 								?>
