@@ -314,9 +314,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!response) return Kick(playerid);
 
-			if(strlen(inputtext) < 6 || strlen(inputtext) > 60)
+			if(strlen(inputtext) < 6 || strlen(inputtext) > 129)
 			{
-		    	SendClientMessage(playerid, 0x969696FF, "Invalid password length, should be 6 - 60.");
+		    	SendClientMessage(playerid, 0x969696FF, "Invalid password length, should be more than 6 characters.");
 
 				new String[150];
 
