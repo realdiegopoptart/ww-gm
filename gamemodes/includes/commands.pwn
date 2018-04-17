@@ -210,7 +210,7 @@ CMD:pm(playerid, params[])
 	GetPlayerName(id, name2, sizeof(name2));
     if(sscanf(params, "us[128]", id, params))
 	{
-	    SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /pm (id) (message)");
+	    SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /pm (playerid) (message)");
 	    return 1;
 	}
 	if(!IsPlayerConnected(id)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "That player is not connected!");
@@ -220,6 +220,32 @@ CMD:pm(playerid, params[])
 	format(string, sizeof(string), "PM from %s (ID: %d): %s", name1, playerid, params);
 	SendClientMessage(id, COLOR_WHITE, string);
 	return 1;
+}
+
+CMD:makeadmin(playerid, params[])
+{
+	if(pInfo[playerid][Admin] > 2) {
+		new string[128], giveplayerid, givename[MAX_PLAYER_NAME], receivename[MAX_PLAYER_NAME], level;
+	 	GetPlayerName(playerid, givename, sizeof(givename));
+		GetPlayerName(giveplayerid, receivename, sizeof(receivename));
+	 	if(sscanf(params, "ud", giveplayerid, level))
+	 	{
+	 		SendClientMessage(playerid, COLOR_LIGHTGREY, "USAGE: /makeadmin (playerid) (admin level 2-3)");
+	 		return 1;
+	 	}
+		if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTGREY, "That player is not connected!");
+	 	if(level >= pInfo[playerid][Admin]) {
+	 		SendClientMessage(playerid, COLOR_LIGHTGREY, "You can't make a player the same/higher admin level.");
+	 		return 1;
+	 	}
+	 	pInfo[giveplayerid][Admin] = level;
+		format(string, sizeof(string), "%s has made you an administrator.", givename);
+		SendClientMessage(giveplayerid, COLOR_LIGHTGREY, string);
+		format(string, sizeof(string), "You have made %s an administrator.", receivename);
+		SendClientMessage(playerid, COLOR_LIGHTGREY, string);
+		return 1;
+ 	}
+	else return SendClientMessage(playerid, 0xff0000ff, "You're not authorized to use this command.");
 }
 
 CMD:givegun(playerid, params[])
