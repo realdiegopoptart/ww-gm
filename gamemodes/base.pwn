@@ -93,7 +93,7 @@ public OnGameModeInit()
 
 	new str[128];
  	gettime(Hour, Minute, Second);
-	format(str, sizeof str, "``%02d:%02d:%02d - GAMEMODE: Gamemode Initiated. (version: 1.0b) (GM Text: WW:DM 1.0b) (IP: 213.32.15.137)``", Hour, Minute, Second);
+	format(str, sizeof str, "``%02d:%02d:%02d - GAMEMODE: Gamemode Initiated. (version: 1.0b) (GM Text: WW:DM 1.0b) (IP: )``", Hour, Minute, Second);
 	DCC_SendChannelMessage(g_GamemodeChannelId, str);
 
 	AddPlayerClass(285,1958.3783,1343.1572,15.3746,270.1425,0,0,0,0,-1,-1);
